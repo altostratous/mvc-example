@@ -50,4 +50,8 @@ public abstract class Controller implements HttpHandler {
     }
 
     public abstract View exec(String method, InputStream body) throws IOException;
+
+    protected DataContext getDataContext() {
+        return this.dataContext;
+    }
 }
