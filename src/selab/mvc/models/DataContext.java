@@ -5,14 +5,25 @@ import selab.mvc.models.entities.Student;
 import selab.mvc.models.entities.StudentParticipatesCourse;
 import selab.mvc.models.entities.Weekday;
 
+import javax.xml.crypto.Data;
+
 public class DataContext {
-    public DataContext() {
+
+    private static DataContext instance = null;
+
+    private DataContext() {
         seed();
     }
 
     private DataSet<Student> students = new DataSet<>();
     private DataSet<Course> courses = new DataSet<>();
     private DataSet<StudentParticipatesCourse> participations = new DataSet<>();
+
+    public static DataContext getInstance() {
+        if (instance == null)
+            instance = new DataContext();
+        return instance;
+    }
 
     public DataSet<Student> getStudents() { return this.students; }
     public DataSet<Course> getCourses() { return this.courses; }

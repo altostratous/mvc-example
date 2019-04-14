@@ -1,12 +1,19 @@
 package selab.mvc.models.entities;
 
+import selab.mvc.models.DataContext;
 import selab.mvc.models.Model;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Student implements Model {
     private String name;
     private String studentNo;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 
     @Override
     public String getPrimaryKey() {
@@ -30,8 +37,21 @@ public class Student implements Model {
     }
 
     public String getCourses() {
-        // TODO: Return a comma separated list of course names
-        return "-";
+        StringBuilder stringBuilder = new StringBuilder();
+        boolean firstToken = true;
+        for (StudentParticipatesCourse participation :
+                DataContext.getInstance().getParticipations().getAll()) {
+            if (!participation.getStudent().getPrimaryKey().equals(getPrimaryKey()))
+                continue;
+            if (!firstToken) {
+                stringBuilder.append(", ");
+
+            } else {
+                firstToken = false;
+            }
+            stringBuilder.append(participation.getCourse().toString());
+        }
+        return stringBuilder.toString();
     }
 
     /**

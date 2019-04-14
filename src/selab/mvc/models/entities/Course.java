@@ -1,5 +1,6 @@
 package selab.mvc.models.entities;
 
+import selab.mvc.models.DataContext;
 import selab.mvc.models.Model;
 import sun.misc.Regexp;
 
@@ -12,6 +13,10 @@ public class Course implements Model {
     private String endTime = null;
     private Weekday weekday;
 
+    @Override
+    public String toString() {
+        return title;
+    }
 
     @Override
     public String getPrimaryKey() {
@@ -66,8 +71,21 @@ public class Course implements Model {
     }
 
     public String getStudents() {
-        // TODO: Return a comma separated list of student names
-        return "-";
+        StringBuilder stringBuilder = new StringBuilder();
+        boolean firstToken = true;
+        for (StudentParticipatesCourse participation :
+                DataContext.getInstance().getParticipations().getAll()) {
+            if (!participation.getCourse().getPrimaryKey().equals(getPrimaryKey()))
+                continue;
+            if (!firstToken) {
+                stringBuilder.append(", ");
+
+            } else {
+                firstToken = false;
+            }
+            stringBuilder.append(participation.getStudent().toString());
+        }
+        return stringBuilder.toString();
     }
 
     /**
