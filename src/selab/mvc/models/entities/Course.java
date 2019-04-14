@@ -66,8 +66,17 @@ public class Course implements Model {
     }
 
     public float getAverage() {
-        // TODO: Calculate and return the average of the points
-        return 0;
+        float sum = 0;
+        int count = 0;
+
+        for (StudentParticipatesCourse participation :
+                DataContext.getInstance().getParticipations().getAll()) {
+            if (!participation.getCourse().getPrimaryKey().equals(getPrimaryKey()))
+                continue;
+            sum += participation.getScore();
+            count++;
+        }
+        return count == 0? 0: sum / count;
     }
 
     public String getStudents() {

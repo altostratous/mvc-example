@@ -30,4 +30,8 @@ public class StudentParticipatesCourse implements Model {
     public Student getStudent() {
         return student;
     }
+
+    public float getScore() {
+        return score;
+    }
 }
