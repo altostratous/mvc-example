@@ -31,6 +31,21 @@
     </checkstyle>
   </target>
 
+  <target name="compile-test">
+    <javac classpathref="myclasspath" destdir="${basedir}/testout" srcdir="${basedir}/test" />
+  </target>
+
+  <target name="test" depends="compile-test">
+    <junit>
+      <classpath>
+        <pathelement path="${basedir}/lib/hamcrest-core-1.3.jar" />
+        <pathelement path="${basedir}/lib/junit-4.13-beta-2.jar" />
+        <pathelement path="${basedir}/testout" />
+      </classpath>
+      <test name="TestPureMathematics"/>
+    </junit>
+  </target>
+
   <target name="all" depends="compile, make, run">
   </target>
 </project>

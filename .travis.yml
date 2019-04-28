@@ -2,3 +2,4 @@ language: java
 script:
   - ant make
   - ant lint
+  - ant test
