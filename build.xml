@@ -10,7 +10,7 @@
   <target name="compile">
     <javac classpathref="myclasspath" srcdir="${basedir}/src" destdir="${basedir}/out" />
   </target>
-  <target name="make">
+  <target name="make" depends="compile">
     <jar basedir="${basedir}/out" destfile="${basedir}/artifacts/mvc.jar">
       <manifest>
         <attribute name="Main-Class" value="Main" />
